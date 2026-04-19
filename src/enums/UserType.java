@@ -3,7 +3,8 @@ package enums;
 public enum UserType {
     CUSTOMER("Cliente"),
     CASHIER("Caixa"),
-    SELLER("Vendedor");
+    SELLER("Vendedor"),
+    ADMIN("administrator");
 
     private final String description;
 
