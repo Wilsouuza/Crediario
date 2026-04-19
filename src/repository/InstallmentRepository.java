@@ -26,7 +26,6 @@ public class InstallmentRepository {
         return null;
     }
 
-
     public List<Installment> findByPurchase(Purchase purchase){
         List<Installment> result = new ArrayList<>();
         for (Installment i : installments){
@@ -56,8 +55,6 @@ public class InstallmentRepository {
         }
         return result;
     }
-
-
 
     public List<Installment> findAll(){
         return new ArrayList<>(installments);
