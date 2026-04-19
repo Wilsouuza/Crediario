@@ -4,7 +4,7 @@ public enum UserType {
     CUSTOMER("Cliente"),
     CASHIER("Caixa"),
     SELLER("Vendedor"),
-    ADMIN("administrator");
+    ADMIN("administrador");
 
     private final String description;
 
