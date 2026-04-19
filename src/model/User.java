@@ -10,7 +10,7 @@ public class User {
     private String password;
     private UserType userType;
     private Customer customer;
-    private BigDecimal comission = BigDecimal.ZERO;
+    private BigDecimal commission = BigDecimal.ZERO;
 
     public User(String login, String password, UserType userType) {
         this.login = login;
@@ -27,11 +27,11 @@ public class User {
     }
 
     public BigDecimal getComission() {
-        return comission;
+        return commission;
     }
 
     public void setComission(BigDecimal comission) {
-        this.comission = comission;
+        this.commission = comission;
     }
 
     public String getLogin() {
