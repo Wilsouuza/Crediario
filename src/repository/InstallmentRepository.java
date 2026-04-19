@@ -1,5 +1,7 @@
 package repository;
 
+import enums.InstallmentStatus;
+import model.Customer;
 import model.Installment;
 import model.Purchase;
 
@@ -34,6 +36,28 @@ public class InstallmentRepository {
         }
         return result;
     }
+
+    public List<Installment> findByCustomer(Customer customer){
+        List<Installment> result = new ArrayList<>();
+        for (Installment i : installments){
+            if (i.getPurchase().getCustomer().getId() == customer.getId()){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+    public List<Installment> findByStatus(InstallmentStatus status){
+        List<Installment> result = new ArrayList<>();
+        for (Installment i : installments){
+            if (i.getStatus() == status){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
+
 
     public List<Installment> findAll(){
         return new ArrayList<>(installments);
