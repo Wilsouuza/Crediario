@@ -43,4 +43,15 @@ public class UserRepository {
         return result;
     }
 
+    public List<User> findAll(){
+        return new ArrayList<>(users);
+    }
+
+    public void delete(long id){
+        User user = findById(id);
+        if (user != null){
+            users.remove(user);
+        }
+    }
+
 }
