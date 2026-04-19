@@ -2,12 +2,15 @@ package model;
 
 import enums.UserType;
 
+import java.math.BigDecimal;
+
 public class User {
     private long id;
     private String login;
     private String password;
     private UserType userType;
     private Customer customer;
+    private BigDecimal comission = BigDecimal.ZERO;
 
     public User(String login, String password, UserType userType) {
         this.login = login;
@@ -21,6 +24,14 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public BigDecimal getComission() {
+        return comission;
+    }
+
+    public void setComission(BigDecimal comission) {
+        this.comission = comission;
     }
 
     public String getLogin() {

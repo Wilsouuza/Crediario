@@ -12,14 +12,16 @@ public class Customer {
     private String profession;
     private LocalDate birthDate;
     private BigDecimal creditLimit;
+    private User registeredBy;
 
-    public Customer(String name, String cpf, String phone, String profession, LocalDate birthDate, BigDecimal creditLimit) {
+    public Customer(String name, String cpf, String phone, String profession, LocalDate birthDate, BigDecimal creditLimit, User registeredBy) {
         this.name = name;
         this.cpf = cpf;
         this.phone = phone;
         this.profession = profession;
         this.birthDate = birthDate;
         this.creditLimit = creditLimit;
+        this.registeredBy = registeredBy;
     }
 
     public long getId() {
@@ -71,5 +73,9 @@ public class Customer {
 
     public void setCreditLimit(BigDecimal creditLimit) {
         this.creditLimit = creditLimit;
+    }
+
+    public User getRegiteredBy() {
+        return registeredBy;
     }
 }
