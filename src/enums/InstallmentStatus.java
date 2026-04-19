@@ -1,13 +1,13 @@
 package enums;
 
-public enum InstalllmentStatus {
+public enum InstallmentStatus {
     PAID("Pago"),
     PENDING("Pendente"),
     LATE("Atrasado");
 
     private final String description;
 
-    InstalllmentStatus(String description){
+    InstallmentStatus(String description){
         this.description = description;
     }
 
