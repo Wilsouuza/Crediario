@@ -26,12 +26,12 @@ public class User {
         this.id = id;
     }
 
-    public BigDecimal getComission() {
+    public BigDecimal getCommission() {
         return commission;
     }
 
-    public void setComission(BigDecimal comission) {
-        this.commission = comission;
+    public void setCommission(BigDecimal commission) {
+        this.commission = commission;
     }
 
     public String getLogin() {
