@@ -43,6 +43,8 @@ public class Customer {
         return cpf;
     }
 
+
+
     public String getPhone() {
         return phone;
     }
