@@ -1,7 +1,9 @@
 package service;
 
+import enums.InstallmentStatus;
 import exception.BusinessException;
 import model.Customer;
+import model.Installment;
 import model.User;
 import repository.CustomerRepository;
 import util.ValidationUtils;
@@ -88,7 +90,19 @@ public class CustomerService {
 
         ValidationUtils.exists(customer,"Customer");
 
-        return customer.getCreditLimit();
+        List<Installment> pendingInstallment =  installmentService.findByCustomerAndStatus(customer, InstallmentStatus.PENDING);
+        List<Installment> lateInstallment =  installmentService.findByCustomerAndStatus(customer, InstallmentStatus.LATE);
+
+        BigDecimal totalDebt = BigDecimal.ZERO;
+
+        for (Installment i : pendingInstallment) {
+            totalDebt = totalDebt.add(i.getValue());
+        }
+        for (Installment i : lateInstallment) {
+            totalDebt = totalDebt.add(i.getValue());
+        }
+
+        return customer.getCreditLimit().subtract(totalDebt);
     }
 
     public boolean hasLateInstallments(String cpf){
