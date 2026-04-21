@@ -61,6 +61,10 @@ public class InstallmentService {
         return installmentRepository.findByCustomer(customer);
     }
 
+    public List<Installment> findByCustomerAndStatus(Customer customer,InstallmentStatus status){
+        return installmentRepository.findByCustomerAndStatus(customer,status);
+    }
+
     public List<Installment> findAll(){
         return installmentRepository.findAll();
     }
