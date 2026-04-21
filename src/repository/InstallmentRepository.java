@@ -56,6 +56,16 @@ public class InstallmentRepository {
         return result;
     }
 
+    public List<Installment> findByCustomerAndStatus(Customer customer, InstallmentStatus status){
+        List<Installment> result = new ArrayList<>();
+        for (Installment i : installments){
+            if (i.getPurchase().getCustomer().getId() == customer.getId() && i.getStatus() == status){
+                result.add(i);
+            }
+        }
+        return result;
+    }
+
     public List<Installment> findAll(){
         return new ArrayList<>(installments);
     }
