@@ -3,22 +3,21 @@ package model;
 import enums.PaymentMethod;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Payment {
     private long id;
     private Installment installment;
-    private LocalDate date;
+    private LocalDateTime date = LocalDateTime.now();
     private BigDecimal originalAmount;
     private BigDecimal fineAmount;
     private BigDecimal paidAmount;
     private BigDecimal interestAmount;
     private PaymentMethod paymentMethod;
 
-    public Payment(Installment installment, LocalDate date, BigDecimal originalAmount, BigDecimal fineAmount, BigDecimal paidAmount,BigDecimal interestAmount ,PaymentMethod paymentMethod) {
+    public Payment(Installment installment,BigDecimal originalAmount, BigDecimal fineAmount, BigDecimal paidAmount,BigDecimal interestAmount ,PaymentMethod paymentMethod) {
 
         this.installment = installment;
-        this.date = date;
         this.originalAmount = originalAmount;
         this.fineAmount = fineAmount;
         this.paidAmount = paidAmount;
@@ -38,7 +37,7 @@ public class Payment {
         return installment;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
