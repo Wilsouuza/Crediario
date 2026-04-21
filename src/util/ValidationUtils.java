@@ -16,4 +16,11 @@ public class ValidationUtils {
         }
     }
 
+    public static void exists(Object value, String entityName){
+        if (value == null){
+            throw new BusinessException(entityName + " not found");
+        }
+    }
+
+
 }
