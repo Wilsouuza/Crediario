@@ -2,6 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Customer {
 
@@ -13,6 +14,7 @@ public class Customer {
     private LocalDate birthDate;
     private BigDecimal creditLimit;
     private User registeredBy;
+    private LocalDateTime registrationDate = LocalDateTime.now();
 
     public Customer(String name, String cpf, String phone, String profession, LocalDate birthDate, BigDecimal creditLimit, User registeredBy) {
         this.name = name;
@@ -23,6 +25,7 @@ public class Customer {
         this.creditLimit = creditLimit;
         this.registeredBy = registeredBy;
     }
+
 
     public long getId() {
         return id;
@@ -77,7 +80,11 @@ public class Customer {
         this.creditLimit = creditLimit;
     }
 
-    public User getRegiteredBy() {
+    public User getRegisteredBy() {
         return registeredBy;
+    }
+
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
     }
 }
