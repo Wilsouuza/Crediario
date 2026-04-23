@@ -65,8 +65,14 @@ public class InstallmentService {
         return installmentRepository.findByCustomerAndStatus(customer,status);
     }
 
+    public Installment findById(long id){
+        return installmentRepository.findById(id);
+    }
+
     public List<Installment> findAll(){
         return installmentRepository.findAll();
     }
+
+
 
 }
