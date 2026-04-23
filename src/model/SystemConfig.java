@@ -10,12 +10,14 @@ public class SystemConfig {
     private BigDecimal fineRate;
     private int maxInstallments;
     private BigDecimal minPurchaseAmount;
+    private BigDecimal defaultCreditLimit;
 
     private SystemConfig() {
         this.interestRatePerDay = new BigDecimal("0.001");
         this.fineRate = new BigDecimal("0.02");
         this.maxInstallments = 6;
         this.minPurchaseAmount = new BigDecimal("10.00");
+        this.defaultCreditLimit = new BigDecimal("500.00");
     }
 
     public static SystemConfig getInstance() {
@@ -55,5 +57,13 @@ public class SystemConfig {
 
     public void setMinPurchaseAmount(BigDecimal minPurchaseAmount) {
         this.minPurchaseAmount = minPurchaseAmount;
+    }
+
+    public BigDecimal getDefaultCreditLimit() {
+        return defaultCreditLimit;
+    }
+
+    public void setDefaultCreditLimit(BigDecimal defaultCreditLimit) {
+        this.defaultCreditLimit = defaultCreditLimit;
     }
 }

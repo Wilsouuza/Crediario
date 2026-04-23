@@ -4,6 +4,7 @@ import enums.InstallmentStatus;
 import exception.BusinessException;
 import model.Customer;
 import model.Installment;
+import model.SystemConfig;
 import model.User;
 import repository.CustomerRepository;
 import util.ValidationUtils;
@@ -24,7 +25,7 @@ public class CustomerService {
         this.installmentService = installmentService;
     }
 
-    public void createCustomer(String name, String cpf, String phone, String profession, LocalDate birthDate, BigDecimal creditLimit, User registeredBy){
+    public void createCustomer(String name, String cpf, String phone, String profession, LocalDate birthDate,User registeredBy){
         ValidationUtils.notNullOrBlank(cpf, "CPF");
         ValidationUtils.notNullOrBlank(name,"Name");
         ValidationUtils.notNullOrBlank(phone, "Phone");
@@ -32,10 +33,7 @@ public class CustomerService {
         ValidationUtils.notNullOrBlank(profession, "Profession");
         ValidationUtils.notNull(registeredBy ,"Registered BY");
 
-        ValidationUtils.notNull(creditLimit, "CreditLimit");
-        if (creditLimit.compareTo(BigDecimal.ZERO) <= 0){
-            throw new BusinessException("Credit limit must be greater than zero.");
-        }
+        BigDecimal creditLimit = SystemConfig.getInstance().getDefaultCreditLimit();
 
         Customer customer = customerRepository.findByCpf(cpf);
 
