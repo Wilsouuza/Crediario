@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Crediario.iml" filepath="$PROJECT_DIR$/Crediario.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crediario.iml" filepath="$PROJECT_DIR$/crediario.iml" />
     </modules>
   </component>
 </project>
