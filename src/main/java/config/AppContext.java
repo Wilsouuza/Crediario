@@ -7,17 +7,17 @@ public class AppContext {
 
     private static AppContext instance;
 
-    private final UserRepository userRepository = new UserRepository();
-    private final CustomerRepository customerRepository = new CustomerRepository();
-    private final PurchaseRepository purchaseRepository = new PurchaseRepository();
-    private final InstallmentRepository installmentRepository = new InstallmentRepository();
-    private final PaymentRepository paymentRepository = new PaymentRepository();
+    private final UserRepository userRepository = new UserRepositoryImpl();
+    private final CustomerRepository customerRepository = new CustomerRepositoryImpl();
+    private final PurchaseRepository purchaseRepository = new PurchaseRepositoryImpl();
+    private final InstallmentRepository installmentRepository = new InstallmentRepositoryImpl();
+    private final PaymentRepository paymentRepository = new PaymentRepositoryImpl();
 
-    private final UserService userService = new UserService(userRepository);
-    private final InstallmentService installmentService = new InstallmentService(installmentRepository);
-    private final CustomerService customerService = new CustomerService(customerRepository, userService, installmentService);
-    private final PurchaseService purchaseService = new PurchaseService(purchaseRepository, customerService, installmentService, userService);
-    private final PaymentService paymentService = new PaymentService(paymentRepository, installmentService);
+    private final UserService userService = new UserServiceImpl(userRepository);
+    private final InstallmentService installmentService = new InstallmentServiceImpl(installmentRepository);
+    private final CustomerService customerService = new CustomerServiceImpl(customerRepository, userService, installmentService);
+    private final PurchaseService purchaseService = new PurchaseServiceImpl(purchaseRepository, customerService, installmentService, userService);
+    private final PaymentService paymentService = new PaymentServiceImpl(paymentRepository, installmentService);
 
     private AppContext(){
 
