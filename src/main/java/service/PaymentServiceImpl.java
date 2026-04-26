@@ -58,6 +58,11 @@ public class PaymentServiceImpl implements PaymentService {
         public List<Payment> findByCustomer(Customer customer){
             return paymentRepository.findByCustomer(customer);
         }
+
+        public List<Payment> findByDateRange(LocalDate start, LocalDate end){
+            return paymentRepository.findByDateRange(start,end);
+        }
+
         public List<Payment> findAll(){
             return paymentRepository.findAll();
         }

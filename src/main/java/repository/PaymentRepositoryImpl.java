@@ -4,6 +4,7 @@ import model.Customer;
 import model.Payment;
 import model.Purchase;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,16 @@ public class PaymentRepositoryImpl implements PaymentRepository {
         List<Payment> result = new ArrayList<>();
         for (Payment p : payments){
             if (p.getInstallment().getPurchase().getCustomer().getId() == customer.getId()){
+                result.add(p);
+            }
+        }
+        return result;
+    }
+
+    public List<Payment> findByDateRange(LocalDate start, LocalDate end){
+        List<Payment> result = new ArrayList<>();
+        for (Payment p : payments){
+            if (!p.getDate().toLocalDate().isBefore(start) && !p.getDate().toLocalDate().isAfter(end)) {
                 result.add(p);
             }
         }

@@ -11,6 +11,7 @@ import util.ValidationUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerServiceImpl implements CustomerService {
@@ -64,6 +65,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     public List<Customer> findAll(){
         return customerRepository.findAll();
+    }
+
+    public List<Customer> findAllWithLateInstallments(){
+        List<Customer> customers = customerRepository.findAll();
+        List<Customer> customersWithLateInstallments = new ArrayList<>();
+        for (Customer c : customers){
+            if (installmentService.hasLateInstallments(c)){
+                customersWithLateInstallments.add(c);
+            }
+        }
+        return customersWithLateInstallments;
     }
 
     public void updateCustomer(String name, String cpf, String phone, String profession, LocalDate birthDate){

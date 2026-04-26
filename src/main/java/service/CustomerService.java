@@ -13,6 +13,7 @@ public interface CustomerService {
     Customer findById(long id);
     Customer findByCpf (String cpf);
     List<Customer> findAll();
+    List<Customer> findAllWithLateInstallments();
     void updateCustomer(String name, String cpf, String phone, String profession, LocalDate birthDate);
     BigDecimal getAvailableLimit(String cpf);
     boolean hasLateInstallments(String cpf);

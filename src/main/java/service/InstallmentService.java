@@ -13,6 +13,7 @@ public interface InstallmentService {
     boolean hasLateInstallments(Customer customer);
     List<Installment> findByPurchase(Purchase purchase);
     List<Installment> findByCustomer(Customer customer);
+    List<Installment> findByStatus(InstallmentStatus status);
     List<Installment> findByCustomerAndStatus(Customer customer, InstallmentStatus status);
     Installment findById(long id);
     List<Installment> findAll();

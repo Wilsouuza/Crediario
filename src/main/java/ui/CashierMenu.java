@@ -145,7 +145,7 @@ public class CashierMenu {
             context.getPaymentService().createPayment(context.getInstallmentService().findById(installmentId),paymentMethod);
             System.out.println("Payment made successfully");
         }catch (BusinessException e){
-            System.out.println("Erro " + e.getMessage());
+            System.out.println("Error " + e.getMessage());
         }
     }
 
@@ -167,7 +167,7 @@ public class CashierMenu {
                 System.out.println("\nPayment method: " + p.getPaymentMethod());
             }
         }catch (BusinessException e){
-            System.out.println("Erro " + e.getMessage());
+            System.out.println("Error " + e.getMessage());
         }
 
     }
