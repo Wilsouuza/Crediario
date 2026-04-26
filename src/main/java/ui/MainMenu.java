@@ -20,10 +20,13 @@ public class MainMenu {
         boolean running = true;
 
         while (running) {
-            System.out.println("=== Crediário ===");
+            System.out.println("\n=== Crediário ===");
+
             System.out.println("0 - Exit");
             System.out.print("Login: ");
             String login = scanner.nextLine();
+
+
 
             if (login.equals("0")) {
                 System.out.println("Goodbye!");

@@ -4,10 +4,7 @@ import config.AppContext;
 import enums.InstallmentStatus;
 import enums.PaymentMethod;
 import exception.BusinessException;
-import model.Installment;
-import model.Payment;
-import model.SystemConfig;
-import model.User;
+import model.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -31,9 +28,10 @@ public class CashierMenu {
             System.out.println("\n=== Cashier Menu ===");
             System.out.println("1 - Register customer");
             System.out.println("2 - View customer balance");
-            System.out.println("3 - View customer installments");
-            System.out.println("4 - Receive payment");
-            System.out.println("5 - Print statement");
+            System.out.println("3 - Register Purchase");
+            System.out.println("4 - View customer installments");
+            System.out.println("5 - Receive payment");
+            System.out.println("6 - Print statement");
             System.out.println("0 - Logout");
             System.out.print("Option: ");
 
@@ -42,9 +40,10 @@ public class CashierMenu {
             switch (option){
                 case "1" -> registerCustomer();
                 case "2" -> viewCustomerBalance();
-                case "3" -> viewCustomerInstallments();
-                case "4" -> receivePayment();
-                case "5" -> printStatement();
+                case "3" -> registerPurchase();
+                case "4" -> viewCustomerInstallments();
+                case "5" -> receivePayment();
+                case "6" -> printStatement();
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
             }
@@ -53,6 +52,7 @@ public class CashierMenu {
     }
 
     private void registerCustomer(){
+        System.out.println("\n=== Register customer ===");
         System.out.print("Name: ");
         String name = scanner.nextLine();
         System.out.print("CPF: ");
@@ -75,7 +75,7 @@ public class CashierMenu {
     }
 
     private void viewCustomerBalance(){
-        System.out.print("\n=== View customer balance ===");
+        System.out.println("\n=== View customer balance ===");
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
         try {
@@ -86,8 +86,28 @@ public class CashierMenu {
         }
     }
 
+    private void registerPurchase(){
+        System.out.println("\n=== Register Purchase ===");
+        System.out.print("CPF: ");
+        String cpf = scanner.nextLine();
+        System.out.print("Purchase Value: ");
+        BigDecimal purchaseValue = new BigDecimal(scanner.nextLine());
+        System.out.print("Qty Installments: ");
+        int qtyInstallments = Integer.parseInt(scanner.nextLine()) ;
+        System.out.print("Description: ");
+        String description = scanner.nextLine();
+
+        try {
+            Customer customer = context.getCustomerService().findByCpf(cpf);
+            context.getPurchaseService().createPurchase(customer,purchaseValue,LocalDate.now(),qtyInstallments, description);
+            System.out.println("Purchase registered successfully!");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
+    }
+
     private void viewCustomerInstallments(){
-        System.out.print("\n=== View customer Installments ===");
+        System.out.println("\n=== View customer Installments ===");
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
         try {
@@ -120,13 +140,13 @@ public class CashierMenu {
     }
 
     private void receivePayment(){
-        System.out.print("\n=== Payment ===");
+        System.out.println("\n=== Payment ===");
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
         viewCustomerInstallments(cpf);
         System.out.print("Type the Installment Id for pay: ");
         long installmentId = Long.parseLong(scanner.nextLine());
-        System.out.print("\n=== Payment Method ===");
+        System.out.println("\nPayment Method");
         System.out.print("[1] Pix");
         System.out.print("[2] Cash");
         String op = scanner.nextLine();
@@ -150,7 +170,7 @@ public class CashierMenu {
     }
 
     private void printStatement(){
-        System.out.print("\n=== Print Statement ===");
+        System.out.println("\n=== Print Statement ===");
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
 

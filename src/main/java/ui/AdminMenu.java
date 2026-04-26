@@ -55,7 +55,7 @@ public class AdminMenu {
             System.out.println("2 - Delete user");
             System.out.println("3 - Change password");
 
-            System.out.println("0 - Logout");
+            System.out.println("0 - Back");
             System.out.print("Option: ");
 
             String option = scanner.nextLine();
@@ -77,7 +77,7 @@ public class AdminMenu {
         String login = scanner.nextLine();
         System.out.print("Password: ");
         String password = scanner.nextLine();
-        System.out.println("\n=== User type ===");
+        System.out.println("User type");
         System.out.println("1 - Cashier");
         System.out.println("2 - Seller");
         System.out.println("3 - Admin");
@@ -240,7 +240,7 @@ public class AdminMenu {
         }
 
         System.out.println("\n=== Reports ===");
-        System.out.print("Number of Purchases: " + totalPurchases);
+        System.out.println("Number of Purchases: " + totalPurchases);
         System.out.println("Amount of Purchases: " + totalValuePurchases);
         System.out.println("Number of Owing Customers: " + totalOwingCustomers);
         System.out.println("Amount of Debts: " + amountOfDebts);
