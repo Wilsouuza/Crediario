@@ -10,6 +10,7 @@ import util.ValidationUtils;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class InstallmentServiceImpl implements InstallmentService {
@@ -67,6 +68,13 @@ public class InstallmentServiceImpl implements InstallmentService {
 
     public List<Installment> findByCustomerAndStatus(Customer customer,InstallmentStatus status){
         return installmentRepository.findByCustomerAndStatus(customer,status);
+    }
+
+    public List<Installment> findOpenInstallmentsByCustomer(Customer customer){
+        List<Installment> result = new ArrayList<>();
+        result.addAll(installmentRepository.findByCustomerAndStatus(customer, InstallmentStatus.PENDING));
+        result.addAll(installmentRepository.findByCustomerAndStatus(customer, InstallmentStatus.LATE));
+        return result;
     }
 
     public Installment findById(long id){

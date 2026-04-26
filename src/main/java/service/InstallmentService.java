@@ -15,6 +15,7 @@ public interface InstallmentService {
     List<Installment> findByCustomer(Customer customer);
     List<Installment> findByStatus(InstallmentStatus status);
     List<Installment> findByCustomerAndStatus(Customer customer, InstallmentStatus status);
+    List<Installment> findOpenInstallmentsByCustomer(Customer customer);
     Installment findById(long id);
     List<Installment> findAll();
 
