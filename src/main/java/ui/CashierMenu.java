@@ -6,6 +6,7 @@ import enums.PaymentMethod;
 import exception.BusinessException;
 import model.*;
 
+import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -80,6 +81,7 @@ public class CashierMenu {
         String cpf = scanner.nextLine();
         try {
             BigDecimal balance = context.getCustomerService().getAvailableLimit(cpf);
+            System.out.println("Name: " + context.getCustomerService().findByCpf(cpf).getName());
             System.out.println("Balance: " + balance);
         } catch (BusinessException e){
             System.out.println("Error "+ e.getMessage());
@@ -111,12 +113,13 @@ public class CashierMenu {
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
         try {
-            List<Installment> installments = context.getInstallmentService().findByCustomer(context.getCustomerService().findByCpf(cpf));
-            for (Installment i : installments){
-                System.out.println("Purchase ID: " + i.getPurchase().getId());
+            context.getInstallmentService().updateOverdueInstallments();
+            List<Installment> openInstallments = context.getInstallmentService().findOpenInstallmentsByCustomer(context.getCustomerService().findByCpf(cpf));
+            for (Installment i : openInstallments){
+                System.out.println("\nPurchase ID: " + i.getPurchase().getId());
                 System.out.println("Installment ID" + i.getId());
                 System.out.println("Value: " + i.getValue());
-                System.out.println("\nDue Date: " + i.getDueDate());
+                System.out.println("Due Date: " + i.getDueDate());
                 System.out.println("Status: " + i.getStatus().getDescription());
             }
         }catch (BusinessException e){
@@ -126,12 +129,13 @@ public class CashierMenu {
 
     private void viewCustomerInstallments(String cpf){
         try {
-            List<Installment> installments = context.getInstallmentService().findByCustomer(context.getCustomerService().findByCpf(cpf));
-            for (Installment i : installments){
-                System.out.println("Purchase ID: " + i.getPurchase().getId());
+            context.getInstallmentService().updateOverdueInstallments();
+            List<Installment> openInstallments = context.getInstallmentService().findOpenInstallmentsByCustomer(context.getCustomerService().findByCpf(cpf));
+            for (Installment i : openInstallments){
+                System.out.println("\nPurchase ID: " + i.getPurchase().getId());
                 System.out.println("Installment ID" + i.getId());
                 System.out.println("Value: " + i.getValue());
-                System.out.println("\nDue Date: " + i.getDueDate());
+                System.out.println("Due Date: " + i.getDueDate());
                 System.out.println("Status: " + i.getStatus().getDescription());
             }
         }catch (BusinessException e){
@@ -148,7 +152,8 @@ public class CashierMenu {
         long installmentId = Long.parseLong(scanner.nextLine());
         System.out.println("\nPayment Method");
         System.out.print("[1] Pix");
-        System.out.print("[2] Cash");
+        System.out.println("[2] Cash");
+        System.out.print("Option: ");
         String op = scanner.nextLine();
         PaymentMethod paymentMethod = null;
 
