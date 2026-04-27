@@ -4,7 +4,7 @@ import enums.InstallmentStatus;
 import enums.PaymentMethod;
 import exception.BusinessException;
 import model.*;
-import repository.PaymentRepository;
+import repository.payment.PaymentRepository;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;

@@ -174,47 +174,79 @@ public class AdminMenu {
 
     private void changeInterestRate(){
         System.out.println("\n=== Change Interest Rate ===");
-        System.out.println("New interest rate: ");
+        System.out.print("New interest rate: ");
         BigDecimal newInterestRate = new BigDecimal(scanner.nextLine());
 
         SystemConfig systemConfig = SystemConfig.getInstance();
-        systemConfig.setInterestRatePerDay(newInterestRate);
+        try {
+            systemConfig.setInterestRatePerDay(newInterestRate);
+            System.out.println("Interest Rate altered.");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
     }
 
     private void changeFineRate(){
         System.out.println("\n=== Change Fine Rate ===");
-        System.out.println("New fine rate: ");
+        System.out.print("New fine rate: ");
         BigDecimal newFineRate = new BigDecimal(scanner.nextLine());
 
         SystemConfig systemConfig = SystemConfig.getInstance();
-        systemConfig.setFineRate(newFineRate);
+
+        try {
+            systemConfig.setFineRate(newFineRate);
+            System.out.println("Fine Rate altered.");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
     }
 
     private void changeMaxInstallments(){
         System.out.println("\n=== Change Max Installments ===");
-        System.out.println("New max installments: ");
+        System.out.print("New max installments: ");
         int newMaxInstallments = Integer.parseInt(scanner.nextLine());
 
         SystemConfig systemConfig = SystemConfig.getInstance();
-        systemConfig.setMaxInstallments(newMaxInstallments);
+
+        try {
+            systemConfig.setMaxInstallments(newMaxInstallments);
+            System.out.println("Max Installments altered.");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
+
+
     }
 
     private void changeMinPurchaseAmount(){
         System.out.println("\n=== Change Min Purchase Amount ===");
-        System.out.println("New min purchase amount: ");
+        System.out.print("New min purchase amount: ");
         BigDecimal newMinPurchaseAmount = new BigDecimal(scanner.nextLine());
 
         SystemConfig systemConfig = SystemConfig.getInstance();
-        systemConfig.setMinPurchaseAmount(newMinPurchaseAmount);
+        try {
+            systemConfig.setMinPurchaseAmount(newMinPurchaseAmount);
+            System.out.println("Min Purchase Amount altered.");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
+
+
     }
 
     private void changeDefaultCreditLimit(){
         System.out.println("\n=== Change Default CreditL Limit ===");
-        System.out.println("New default creditL limit: ");
+        System.out.print("New default creditL limit: ");
         BigDecimal newDefaultCreditLimit = new BigDecimal(scanner.nextLine());
 
         SystemConfig systemConfig = SystemConfig.getInstance();
-        systemConfig.setDefaultCreditLimit(newDefaultCreditLimit);
+        try {
+            systemConfig.setDefaultCreditLimit(newDefaultCreditLimit);
+            System.out.println("Default Credit Limit altered.");
+        }catch (BusinessException e){
+            System.out.println("Error " + e.getMessage());
+        }
+
     }
 
     private void reports(){

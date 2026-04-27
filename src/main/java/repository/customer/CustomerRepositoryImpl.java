@@ -1,4 +1,4 @@
-package repository;
+package repository.customer;
 
 import model.Customer;
 
@@ -9,9 +9,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     private List<Customer> customers = new  ArrayList<>();
     private long nextId = 1;
 
-    public void save(Customer customer){
+    public Customer save(Customer customer){
         customer.setId(nextId++);
         customers.add(customer);
+        return customer;
     }
 
     public Customer findById(long id){

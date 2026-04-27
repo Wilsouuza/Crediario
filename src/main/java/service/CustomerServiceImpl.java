@@ -6,7 +6,7 @@ import model.Customer;
 import model.Installment;
 import model.SystemConfig;
 import model.User;
-import repository.CustomerRepository;
+import repository.customer.CustomerRepository;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;

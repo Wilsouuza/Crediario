@@ -1,4 +1,4 @@
-package repository;
+package repository.installment;
 
 import enums.InstallmentStatus;
 import model.Customer;

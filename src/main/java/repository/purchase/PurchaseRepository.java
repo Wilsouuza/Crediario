@@ -1,4 +1,4 @@
-package repository;
+package repository.purchase;
 
 import model.Customer;
 import model.Purchase;

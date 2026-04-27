@@ -1,4 +1,4 @@
-package repository;
+package repository.payment;
 
 import model.Customer;
 import model.Payment;

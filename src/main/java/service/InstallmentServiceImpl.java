@@ -4,7 +4,7 @@ import enums.InstallmentStatus;
 import model.Customer;
 import model.Installment;
 import model.Purchase;
-import repository.InstallmentRepository;
+import repository.installment.InstallmentRepository;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ public class InstallmentServiceImpl implements InstallmentService {
         BigDecimal installmentValue = purchase.getValue().divide(new BigDecimal(purchase.getQtyInstallments()),2, RoundingMode.HALF_UP);
 
         for (int i = 0; i < purchase.getQtyInstallments(); i++) {
-            LocalDate dueDate = purchase.getDate().plusDays(30L * (i + 1));
+            LocalDate dueDate = purchase.getDate().plusMonths(i + 1);
             Installment installment = new Installment(purchase, installmentValue,dueDate);
             purchase.addInstallment(installment);
             installmentRepository.save(installment);
@@ -70,7 +70,7 @@ public class InstallmentServiceImpl implements InstallmentService {
         return installmentRepository.findByCustomerAndStatus(customer,status);
     }
 
-    public List<Installment> findOpenInstallmentsByCustomer(Customer customer){
+    public List<Installment> findOpenInstallmentsByCustomer(Customer customer) {
         List<Installment> result = new ArrayList<>();
         result.addAll(installmentRepository.findByCustomerAndStatus(customer, InstallmentStatus.PENDING));
         result.addAll(installmentRepository.findByCustomerAndStatus(customer, InstallmentStatus.LATE));

@@ -1,4 +1,4 @@
-package repository;
+package repository.user;
 
 import enums.UserType;
 import model.User;
@@ -6,7 +6,7 @@ import model.User;
 import java.util.List;
 
 public interface UserRepository {
-    void save(User user);
+    User save(User user);
     User findById(long id);
     User findByLogin(String login);
     List<User> findByType(UserType type);

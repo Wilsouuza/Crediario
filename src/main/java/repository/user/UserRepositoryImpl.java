@@ -1,4 +1,4 @@
-package repository;
+package repository.user;
 
 import enums.UserType;
 import model.User;
@@ -10,9 +10,10 @@ public class UserRepositoryImpl implements UserRepository {
     private List<User> users = new ArrayList<>();
     private long nextId = 1;
 
-    public void save(User user){
+    public User save(User user){
         user.setId(nextId++);
         users.add(user);
+        return user;
     }
 
     public User findById(long id){

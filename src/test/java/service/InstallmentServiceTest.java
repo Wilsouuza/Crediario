@@ -13,7 +13,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repository.InstallmentRepository;
+import repository.installment.InstallmentRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

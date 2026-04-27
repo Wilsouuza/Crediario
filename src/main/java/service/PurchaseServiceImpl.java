@@ -4,7 +4,7 @@ import exception.BusinessException;
 import model.Customer;
 import model.Purchase;
 import model.SystemConfig;
-import repository.PurchaseRepository;
+import repository.purchase.PurchaseRepository;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;

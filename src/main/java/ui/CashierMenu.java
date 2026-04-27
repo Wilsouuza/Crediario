@@ -9,6 +9,7 @@ import model.*;
 import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,16 +63,19 @@ public class CashierMenu {
         String phone = scanner.nextLine();
         System.out.print("Profession: ");
         String profession = scanner.nextLine();
-        System.out.print("Birth Date: ");
-        String birthDate = scanner.nextLine();
+        System.out.print("Birth Date (dd/MM/yyyy): ");
+        String birthDateStr = scanner.nextLine();
+
+        LocalDate birthDate = LocalDate.parse(birthDateStr, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
         try {
-            context.getCustomerService().createCustomer(name,cpf,phone,profession, LocalDate.parse(birthDate),loggedUser );
+            context.getCustomerService().createCustomer(name,cpf,phone,profession, birthDate,loggedUser );
             System.out.println("Customer registered successfully");
         } catch (BusinessException e){
             System.out.println("Error "+ e.getMessage());
         } catch (Exception e) {
-            System.out.println("Invalid date format. Use YYYY-MM-DD.");
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -114,42 +118,66 @@ public class CashierMenu {
         String cpf = scanner.nextLine();
         try {
             context.getInstallmentService().updateOverdueInstallments();
+
             List<Installment> openInstallments = context.getInstallmentService().findOpenInstallmentsByCustomer(context.getCustomerService().findByCpf(cpf));
-            for (Installment i : openInstallments){
-                System.out.println("\nPurchase ID: " + i.getPurchase().getId());
-                System.out.println("Installment ID" + i.getId());
-                System.out.println("Value: " + i.getValue());
-                System.out.println("Due Date: " + i.getDueDate());
-                System.out.println("Status: " + i.getStatus().getDescription());
+
+            int counter = 1;
+            long currentPurchaseId = -1;
+
+            for (Installment i : openInstallments) {
+                // se mudou de compra, exibe o cabeçalho da compra
+                if (i.getPurchase().getId() != currentPurchaseId) {
+                    currentPurchaseId = i.getPurchase().getId();
+                    System.out.println("\nPurchase #" + i.getPurchase().getId()
+                            + " — " + i.getPurchase().getDescription()
+                            + " — R$" + i.getPurchase().getValue());
+                }
+                // exibe a parcela com número sequencial
+                System.out.println("  " + counter + " - Vence: " + i.getDueDate()
+                        + " | R$" + i.getValue()
+                        + " | " + i.getStatus().getDescription());
+                counter++;
             }
+
         }catch (BusinessException e){
             System.out.println("Error " +  e.getMessage());
         }
     }
 
-    private void viewCustomerInstallments(String cpf){
-        try {
-            context.getInstallmentService().updateOverdueInstallments();
-            List<Installment> openInstallments = context.getInstallmentService().findOpenInstallmentsByCustomer(context.getCustomerService().findByCpf(cpf));
-            for (Installment i : openInstallments){
-                System.out.println("\nPurchase ID: " + i.getPurchase().getId());
-                System.out.println("Installment ID" + i.getId());
-                System.out.println("Value: " + i.getValue());
-                System.out.println("Due Date: " + i.getDueDate());
-                System.out.println("Status: " + i.getStatus().getDescription());
-            }
-        }catch (BusinessException e){
-            System.out.println("Error " +  e.getMessage());
-        }
-    }
 
     private void receivePayment(){
         System.out.println("\n=== Payment ===");
         System.out.print("CPF: ");
         String cpf = scanner.nextLine();
-        viewCustomerInstallments(cpf);
-        System.out.print("Type the Installment Id for pay: ");
-        long installmentId = Long.parseLong(scanner.nextLine());
+
+        context.getInstallmentService().updateOverdueInstallments();
+
+        List<Installment> openInstallments = context.getInstallmentService().findOpenInstallmentsByCustomer(context.getCustomerService().findByCpf(cpf));
+        openInstallments.sort((a, b) ->
+                Long.compare(a.getPurchase().getId(), b.getPurchase().getId())
+        );
+        int counter = 1;
+        long currentPurchaseId = -1;
+
+        for (Installment i : openInstallments) {
+            // se mudou de compra, exibe o cabeçalho da compra
+            if (i.getPurchase().getId() != currentPurchaseId) {
+                currentPurchaseId = i.getPurchase().getId();
+                System.out.println("\nPurchase #" + i.getPurchase().getId()
+                        + " — " + i.getPurchase().getDescription()
+                        + " — R$" + i.getPurchase().getValue());
+            }
+            // exibe a parcela com número sequencial
+            System.out.println("  " + counter + " - Vence: " + i.getDueDate()
+                    + " | R$" + i.getValue()
+                    + " | " + i.getStatus().getDescription());
+            counter++;
+        }
+        System.out.print("Choose installment number: ");
+        int choice = Integer.parseInt(scanner.nextLine()) - 1;
+        Installment selected = openInstallments.get(choice);
+
+
         System.out.println("\nPayment Method");
         System.out.print("[1] Pix");
         System.out.println("[2] Cash");
@@ -167,11 +195,13 @@ public class CashierMenu {
             return;
         }
         try {
-            context.getPaymentService().createPayment(context.getInstallmentService().findById(installmentId),paymentMethod);
-            System.out.println("Payment made successfully");
+            context.getPaymentService().createPayment(selected,paymentMethod);
+            System.out.println("Payment successfully.");
         }catch (BusinessException e){
             System.out.println("Error " + e.getMessage());
         }
+
+
     }
 
     private void printStatement(){
@@ -180,18 +210,28 @@ public class CashierMenu {
         String cpf = scanner.nextLine();
 
         try {
-            List<Payment> payments =  context.getPaymentService().findByCustomer(context.getCustomerService().findByCpf(cpf));
-            for (Payment p : payments){
-                System.out.println("Payment ID" + p.getId());
-                System.out.println("Installment ID: " + p.getInstallment().getId());
-                System.out.println("Date: " + p.getDate());
-                System.out.println("Original amount: " + p.getOriginalAmount());
-                System.out.println("Fine amount: " + p.getFineAmount());
-                System.out.println("Paid amount: " + p.getPaidAmount());
-                System.out.println("Interest amount: " + p.getInterestAmount());
-                System.out.println("\nPayment method: " + p.getPaymentMethod());
+            List<Payment> payments = context.getPaymentService()
+                    .findByCustomer(context.getCustomerService().findByCpf(cpf));
+
+            if (payments.isEmpty()) {
+                System.out.println("No payments found.");
+                return;
             }
-        }catch (BusinessException e){
+
+            System.out.println("\n--- Payment History ---");
+            for (Payment p : payments) {
+                System.out.println("\nPayment #" + p.getId()
+                        + " | " + p.getDate().toLocalDate()
+                        + " | " + p.getPaymentMethod().getDescription());
+                System.out.println("  Installment #" + p.getInstallment().getId()
+                        + " | Purchase: " + p.getInstallment().getPurchase().getDescription());
+                System.out.println("  Original:  R$" + p.getOriginalAmount());
+                System.out.println("  Fine:      R$" + p.getFineAmount());
+                System.out.println("  Interest:  R$" + p.getInterestAmount());
+                System.out.println("  Total:     R$" + p.getPaidAmount());
+                System.out.println("  " + "-".repeat(40));
+            }
+        } catch (BusinessException e) {
             System.out.println("Error " + e.getMessage());
         }
 
