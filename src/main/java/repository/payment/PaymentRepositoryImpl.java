@@ -12,9 +12,10 @@ public class PaymentRepositoryImpl implements PaymentRepository {
     private List<Payment> payments = new ArrayList<>();
     private long nextId = 1;
 
-    public void save(Payment payment){
+    public Payment save(Payment payment){
         payment.setId(nextId++);
         payments.add(payment);
+        return payment;
     }
 
     public Payment findById(long id){

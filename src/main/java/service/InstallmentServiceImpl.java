@@ -22,7 +22,7 @@ public class InstallmentServiceImpl implements InstallmentService {
         this.installmentRepository = installmentRepository;
     }
 
-    public void     generateInstallments(Purchase purchase){
+    public void generateInstallments(Purchase purchase){
         BigDecimal installmentValue = purchase.getValue().divide(new BigDecimal(purchase.getQtyInstallments()),2, RoundingMode.HALF_UP);
 
         for (int i = 0; i < purchase.getQtyInstallments(); i++) {

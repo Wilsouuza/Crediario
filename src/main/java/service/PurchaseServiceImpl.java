@@ -27,7 +27,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         this.userService = userService;
     }
 
-    public void createPurchase(Customer customer, BigDecimal value, LocalDate date, int qtyInstallments, String description){
+    public Purchase createPurchase(Customer customer, BigDecimal value, LocalDate date, int qtyInstallments, String description){
         ValidationUtils.notNull(customer, "Customer");
         ValidationUtils.notNull(value, "Value");
         ValidationUtils.notNull(date, "Date");
@@ -74,6 +74,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = new Purchase(customer,value,date,qtyInstallments,description);
         purchaseRepository.save(purchase);
         installmentService.generateInstallments(purchase);
+        return purchase;
     }
 
     public Purchase findById(long id){

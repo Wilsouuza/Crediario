@@ -12,9 +12,10 @@ public class InstallmentRepositoryImpl implements InstallmentRepository {
     private List<Installment> installments = new ArrayList<>();
     private long nextId = 1;
 
-    public void save(Installment installment){
+    public Installment save(Installment installment){
         installment.setId(nextId++);
         installments.add(installment);
+        return installment;
     }
 
     public Installment findById(long id){

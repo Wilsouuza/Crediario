@@ -6,7 +6,7 @@ import model.Purchase;
 import java.util.List;
 
 public interface PurchaseRepository {
-    void save(Purchase purchase);
+    Purchase save(Purchase purchase);
     Purchase findById(long id);
     List<Purchase> findByCustomer(Customer customer);
     List<Purchase> findAll();

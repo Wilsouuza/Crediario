@@ -10,9 +10,10 @@ public class PurchaseRepositoryImpl implements PurchaseRepository {
     private List<Purchase> purchases = new ArrayList<>();
     private long nextId = 1;
 
-    public void save(Purchase purchase){
+    public Purchase save(Purchase purchase){
         purchase.setId(nextId++);
         purchases.add(purchase);
+        return purchase;
     }
 
     public Purchase findById(long id){

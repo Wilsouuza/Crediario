@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User createUser(String login, String password, UserType userType){
+    public void createUser(String login, String password, UserType userType){
         User user = userRepository.findByLogin(login);
         if (login == null || login.isBlank()){
             throw new BusinessException("The login cannot be empty!");
@@ -42,7 +42,6 @@ public class UserServiceImpl implements UserService {
 
         User newUser = new User(login,password,userType);
         userRepository.save(newUser);
-        return newUser;
     }
 
     public void updatePassword(String login, String newPassword){

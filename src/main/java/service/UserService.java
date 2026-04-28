@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
     User login(String login, String password);
-    User createUser(String login, String password, UserType userType);
+    void createUser(String login, String password, UserType userType);
     void updatePassword(String login, String newPassword);
     void deleteUser(String login);
     List<User> findAll();

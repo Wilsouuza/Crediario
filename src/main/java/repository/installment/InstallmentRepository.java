@@ -8,7 +8,7 @@ import model.Purchase;
 import java.util.List;
 
 public interface InstallmentRepository {
-    void save(Installment installment);
+    Installment save(Installment installment);
     Installment findById(long id);
     List<Installment> findByPurchase(Purchase purchase);
     List<Installment> findByCustomer(Customer customer);

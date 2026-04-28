@@ -10,6 +10,7 @@ import repository.payment.PaymentRepository;
 import repository.payment.PaymentRepositoryImpl;
 import repository.purchase.PurchaseRepository;
 import repository.purchase.PurchaseRepositoryImpl;
+import repository.purchase.PurchaseRepositoryJdbc;
 import repository.user.UserRepository;
 import repository.user.UserRepositoryImpl;
 import repository.user.UserRepositoryJdbc;
@@ -21,7 +22,7 @@ public class AppContext {
 
     private final UserRepository userRepository = new UserRepositoryJdbc();
     private final CustomerRepository customerRepository = new CustomerRepositoryJdbc(userRepository);
-    private final PurchaseRepository purchaseRepository = new PurchaseRepositoryImpl();
+    private final PurchaseRepository purchaseRepository = new PurchaseRepositoryJdbc(customerRepository);
     private final InstallmentRepository installmentRepository = new InstallmentRepositoryImpl();
     private final PaymentRepository paymentRepository = new PaymentRepositoryImpl();
 

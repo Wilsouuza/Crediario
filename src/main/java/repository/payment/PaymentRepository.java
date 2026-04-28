@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PaymentRepository {
-    void save(Payment payment);
+    Payment save(Payment payment);
     Payment findById(long id);
     List<Payment> findByPurchase(Purchase purchase);
     List<Payment> findByCustomer(Customer customer);
