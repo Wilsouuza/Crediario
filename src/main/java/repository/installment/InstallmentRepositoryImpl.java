@@ -5,6 +5,7 @@ import model.Customer;
 import model.Installment;
 import model.Purchase;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,14 @@ public class InstallmentRepositoryImpl implements InstallmentRepository {
 
     public List<Installment> findAll(){
         return new ArrayList<>(installments);
+    }
+
+
+    public void updateStatus(long id, InstallmentStatus status) {
+        Installment installment = findById(id);
+        if (installment != null) {
+            installment.setStatus(status);
+        }
     }
 
     public void delete(long id){

@@ -38,9 +38,9 @@ public class InstallmentServiceImpl implements InstallmentService {
         for (Installment i : installments){
             if (i.getStatus() == InstallmentStatus.PENDING && i.getDueDate().isBefore(LocalDate.now())){
                 i.setStatus(InstallmentStatus.LATE);
+                installmentRepository.updateStatus(i.getId(),InstallmentStatus.LATE);
             }
         }
-
     }
 
     public boolean hasLateInstallments(Customer customer){

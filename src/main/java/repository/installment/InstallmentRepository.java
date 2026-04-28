@@ -15,5 +15,6 @@ public interface InstallmentRepository {
     List<Installment> findByStatus(InstallmentStatus status);
     List<Installment> findByCustomerAndStatus(Customer customer, InstallmentStatus status);
     List<Installment> findAll();
+    void updateStatus(long id, InstallmentStatus status);
     void delete(long id);
 }
