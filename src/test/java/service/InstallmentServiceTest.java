@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.installment.InstallmentRepository;
+import service.installment.InstallmentServiceImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

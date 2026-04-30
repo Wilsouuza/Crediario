@@ -13,6 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repository.purchase.PurchaseRepository;
+import service.customer.CustomerService;
+import service.installment.InstallmentService;
+import service.purchase.PurchaseServiceImpl;
+import service.user.UserService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

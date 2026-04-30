@@ -1,4 +1,4 @@
-package service;
+package service.user;
 
 import enums.UserType;
 import model.User;

@@ -1,10 +1,11 @@
-package service;
+package service.payment;
 
 import enums.InstallmentStatus;
 import enums.PaymentMethod;
 import exception.BusinessException;
 import model.*;
 import repository.payment.PaymentRepository;
+import service.installment.InstallmentService;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;
@@ -42,6 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
             BigDecimal totalPaid = installment.getValue().add(fine).add(interest);
 
             installment.setStatus(InstallmentStatus.PAID);
+            installmentService.updateStatus(installment.getId(), InstallmentStatus.PAID);
 
             Payment payment = new Payment(installment, installment.getValue(),fine, totalPaid, interest,paymentMethod);
             paymentRepository.save(payment);

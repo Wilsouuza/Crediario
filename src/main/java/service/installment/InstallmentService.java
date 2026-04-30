@@ -1,4 +1,4 @@
-package service;
+package service.installment;
 
 import enums.InstallmentStatus;
 import model.Customer;
@@ -10,6 +10,7 @@ import java.util.List;
 public interface InstallmentService {
     void generateInstallments(Purchase purchase);
     void updateOverdueInstallments();
+    void updateStatus(long id, InstallmentStatus status);
     boolean hasLateInstallments(Customer customer);
     List<Installment> findByPurchase(Purchase purchase);
     List<Installment> findByCustomer(Customer customer);

@@ -1,10 +1,13 @@
-package service;
+package service.purchase;
 
 import exception.BusinessException;
 import model.Customer;
 import model.Purchase;
 import model.SystemConfig;
 import repository.purchase.PurchaseRepository;
+import service.user.UserService;
+import service.customer.CustomerService;
+import service.installment.InstallmentService;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;

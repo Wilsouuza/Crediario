@@ -1,21 +1,25 @@
 package config;
 
-import enums.UserType;
-import model.User;
 import repository.customer.CustomerRepository;
 import repository.customer.CustomerRepositoryJdbc;
 import repository.installment.InstallmentRepository;
-import repository.installment.InstallmentRepositoryImpl;
 import repository.installment.InstallmentRepositoryJdbc;
 import repository.payment.PaymentRepository;
-import repository.payment.PaymentRepositoryImpl;
+import repository.payment.PaymentRepositoryJdbc;
 import repository.purchase.PurchaseRepository;
-import repository.purchase.PurchaseRepositoryImpl;
 import repository.purchase.PurchaseRepositoryJdbc;
 import repository.user.UserRepository;
-import repository.user.UserRepositoryImpl;
 import repository.user.UserRepositoryJdbc;
-import service.*;
+import service.customer.CustomerService;
+import service.customer.CustomerServiceImpl;
+import service.installment.InstallmentService;
+import service.installment.InstallmentServiceImpl;
+import service.payment.PaymentService;
+import service.payment.PaymentServiceImpl;
+import service.purchase.PurchaseService;
+import service.purchase.PurchaseServiceImpl;
+import service.user.UserService;
+import service.user.UserServiceImpl;
 
 public class AppContext {
 
@@ -25,7 +29,7 @@ public class AppContext {
     private final CustomerRepository customerRepository = new CustomerRepositoryJdbc(userRepository);
     private final PurchaseRepository purchaseRepository = new PurchaseRepositoryJdbc(customerRepository);
     private final InstallmentRepository installmentRepository = new InstallmentRepositoryJdbc(purchaseRepository);
-    private final PaymentRepository paymentRepository = new PaymentRepositoryImpl();
+    private final PaymentRepository paymentRepository = new PaymentRepositoryJdbc(installmentRepository);
 
     private final UserService userService = new UserServiceImpl(userRepository);
     private final InstallmentService installmentService = new InstallmentServiceImpl(installmentRepository);

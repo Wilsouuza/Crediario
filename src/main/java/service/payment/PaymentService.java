@@ -1,4 +1,4 @@
-package service;
+package service.payment;
 
 import enums.PaymentMethod;
 import model.Customer;

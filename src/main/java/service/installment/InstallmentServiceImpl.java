@@ -1,4 +1,4 @@
-package service;
+package service.installment;
 
 import enums.InstallmentStatus;
 import model.Customer;
@@ -41,6 +41,10 @@ public class InstallmentServiceImpl implements InstallmentService {
                 installmentRepository.updateStatus(i.getId(),InstallmentStatus.LATE);
             }
         }
+    }
+
+    public void updateStatus(long id, InstallmentStatus status){
+        installmentRepository.updateStatus(id, status);
     }
 
     public boolean hasLateInstallments(Customer customer){

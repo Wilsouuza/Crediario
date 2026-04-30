@@ -1,4 +1,4 @@
-package service;
+package service.customer;
 
 import enums.InstallmentStatus;
 import exception.BusinessException;
@@ -7,6 +7,8 @@ import model.Installment;
 import model.SystemConfig;
 import model.User;
 import repository.customer.CustomerRepository;
+import service.installment.InstallmentService;
+import service.user.UserService;
 import util.ValidationUtils;
 
 import java.math.BigDecimal;

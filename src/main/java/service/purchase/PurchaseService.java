@@ -1,4 +1,4 @@
-package service;
+package service.purchase;
 
 import model.Customer;
 import model.Purchase;
