@@ -56,7 +56,7 @@ O projeto segue uma arquitetura em camadas com separação clara de responsabili
 
 ```
 src/main/java/
-├── config/         → AppContext (injeção de dependências) e DatabaseConnection
+├── config/         → AppContext (injeção de dependências)
 ├── database/       → Conexão com o PostgreSQL
 ├── enums/          → InstallmentStatus, PaymentMethod, UserType
 ├── exception/      → BusinessException
@@ -68,6 +68,11 @@ src/main/java/
 │   ├── purchase/
 │   └── user/
 ├── service/        → Regras de negócio (interfaces e implementações)
+│   ├── customer/
+│   ├── installment/
+│   ├── payment/
+│   ├── purchase/
+│   └── user/
 ├── ui/             → Menus do terminal
 └── util/           → ValidationUtils
 ```
@@ -149,12 +154,14 @@ cd Crediario
 ```
 
 ### 2. Configure o banco de dados
-Edite o arquivo `src/main/java/database/DatabaseConnection.java` com suas credenciais:
-```java
-private static final String URL = "jdbc:postgresql://localhost:5432/crediario";
-private static final String USER = "postgres";
-private static final String PASSWORD = "sua_senha";
+Crie o arquivo `src/main/resources/database.properties` com suas credenciais:
+```properties
+db.url=jdbc:postgresql://localhost:5432/crediario
+db.user=postgres
+db.password=sua_senha
 ```
+
+> ⚠️ Esse arquivo está no `.gitignore` e não deve ser versionado.
 
 ### 3. Execute o script SQL
 Execute o script de criação das tabelas no pgAdmin ou psql.
@@ -196,10 +203,10 @@ O administrador pode alterar as seguintes configurações pelo menu:
 
 ---
 
-## Autor
+## 👨‍💻 Autor
 
-Wilson — estudante de Análise e Desenvolvimento de Sistemas, 3º semestre.
-
+Wilson Palma Souza  
+Estudante de Análise e Desenvolvimento de Sistemas — 3º semestre.  
 Técnico em Informática pelo IFBA.
 
-[GitHub](https://github.com/Wilsouuza)
+🔗 GitHub: [Wilsouuza](https://github.com/Wilsouuza)

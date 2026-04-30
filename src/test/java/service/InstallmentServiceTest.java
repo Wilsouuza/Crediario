@@ -89,8 +89,8 @@ public class InstallmentServiceTest {
 
         List<Installment> savedInstallments = captor.getAllValues();
 
-        assertEquals(LocalDate.now().plusDays(30), savedInstallments.get(0).getDueDate());
-        assertEquals(LocalDate.now().plusDays(60), savedInstallments.get(1).getDueDate());
+        assertEquals(LocalDate.now().plusMonths(1), savedInstallments.get(0).getDueDate());
+        assertEquals(LocalDate.now().plusMonths(2), savedInstallments.get(1).getDueDate());
     }
 
     @Test
